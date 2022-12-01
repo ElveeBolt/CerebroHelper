@@ -1,0 +1,33 @@
+{% extends 'main/layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            <div class="header-container">
+                <span class="icon">
+                    <i class="ri-home-line"></i>
+                </span>
+                <h1>{{ title }}</h1>
+                <div class="subtitle">Страница приветствия</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="home-container">
+                <div class="title">CerebroHelper</div>
+                <div class="text">Всё что можно оптимизировать - нужно оптимизировать</div>
+                <div class="row-flex">
+                    <a class="btn" href="{% url 'mappings' %}">Генерация Mappings</a>
+                    <a class="btn" href="{% url 'config' %}">Генерация Config</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

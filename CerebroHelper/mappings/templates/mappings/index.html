@@ -1,0 +1,60 @@
+{% extends 'main/layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="container">
+        <div class="header-container">
+            <span class="icon">
+                <i class="ri-database-2-line"></i>
+            </span>
+            <h1>{{ title }}</h1>
+            <div class="subtitle">Страница генерации файла разметки</div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <form action="{% url 'mappings' %}" method="POST">
+            <div class="row">
+                <div class="col-md-7">
+                    <h2>Форма генерации</h2>
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for mapping in mappings %}
+                        <div class="col-md-6">
+                            <div class="checkbox checkbox-line">
+                                {% if mapping.checked == 1 %}
+                                    <input class="custom-checkbox" type="checkbox" id="{{ mapping.field }}" name="mappings" value="{{ mapping.field }}" checked="checked">
+                                {% else %}
+                                    <input class="custom-checkbox" type="checkbox" id="{{ mapping.field }}" name="mappings" value="{{ mapping.field }}">
+                                {% endif %}
+                                <label for="{{ mapping.field }}">{{ mapping.title}}<span>{{ mapping.field }}</span></label>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mappings-image">
+                        <img src="{% static 'main/img/elasticsearch.png' %}" alt="">
+                        <h2>Mappings</h2>
+                        Маппинг (сопоставление) — это процесс определения схемы или структуры документов.
+                        Он описывает свойства полей в документе. Свойства поля включают тип данных
+                        (например, string, integer и т.д.) и метаданные.
+                        <div class="row-flex">
+                            <button type="submit" class="btn btn-main btn-icon"><i class="ri-checkbox-circle-line"></i>Выполнить генерацию</button>
+                            {% if download %}
+                            <a href="{{ download }}" target="_blank" class="btn btn-icon"><i class="ri-file-download-line"></i>Скачать</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

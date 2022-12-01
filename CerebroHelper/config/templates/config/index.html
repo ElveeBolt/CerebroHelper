@@ -1,0 +1,52 @@
+{% extends 'main/layouts/layout.html' %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="container">
+        <div class="header-container">
+            <span class="icon">
+                <i class="ri-file-settings-line"></i>
+            </span>
+            <h1>{{ title }}</h1>
+            <div class="subtitle">Страница генерации файла конфигурации</div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <form action="{% url 'config' %}" method="POST">
+            <div class="row">
+                <div class="col-md-7">
+                    <h2>Форма генерации</h2>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                           <div class="form-group">
+                               <label>Полное название источника данных:</label>
+                               <input type="text" class="form-control" name="database" placeholder="Введите название..." required="required">
+                               <small>Например: Пользователи сайта GeekBrains</small>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mappings-image">
+                        <h2>Конфигурация</h2>
+                        Файл конфигурации хранить в себе информацию касательно полного названия источника данных, который в дальнейшем станет индексом.
+                        <div class="row-flex">
+                            <button type="submit" class="btn btn-main btn-icon"><i class="ri-checkbox-circle-line"></i>Выполнить генерацию</button>
+                            {% if download %}
+                            <a href="{{ download }}" target="_blank" class="btn btn-icon"><i class="ri-file-download-line"></i>Скачать</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
